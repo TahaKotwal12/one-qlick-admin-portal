@@ -1,4 +1,4 @@
-import { UserStatus, UserRole, Address } from './common.types';
+import type { UserStatus, UserRole, Address } from './common.types';
 
 export interface User {
     user_id: string;

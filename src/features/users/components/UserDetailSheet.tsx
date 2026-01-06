@@ -14,7 +14,6 @@ import {
     TabsTrigger,
 } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
 import {
     Mail,
     Phone,
@@ -26,8 +25,7 @@ import {
     User as UserIcon,
     AlertTriangle,
     CheckCircle,
-    Copy,
-    ExternalLink
+    Copy
 } from 'lucide-react';
 import { userService } from '../api/userService';
 import type { User, Address } from '../types';
@@ -112,9 +110,8 @@ export function UserDetailSheet({ userId, open, onOpenChange }: UserDetailSheetP
                                                 {user.first_name?.[0]}{user.last_name?.[0]}
                                             </AvatarFallback>
                                         </Avatar>
-                                        <div className={`absolute bottom-1 right-1 h-7 w-7 rounded-full border-4 border-white shadow-lg ${
-                                            user.status === 'active' ? 'bg-emerald-500' : 'bg-slate-400'
-                                        }`} title={user.status}>
+                                        <div className={`absolute bottom-1 right-1 h-7 w-7 rounded-full border-4 border-white shadow-lg ${user.status === 'active' ? 'bg-emerald-500' : 'bg-slate-400'
+                                            }`} title={user.status}>
                                             <div className={`absolute inset-0 rounded-full ${user.status === 'active' ? 'bg-emerald-500' : 'bg-slate-400'} animate-ping opacity-75`}></div>
                                         </div>
                                     </div>
@@ -195,10 +192,10 @@ export function UserDetailSheet({ userId, open, onOpenChange }: UserDetailSheetP
                                                                 )}
                                                             </div>
                                                         </div>
-                                                        <Button 
-                                                            variant="ghost" 
-                                                            size="icon" 
-                                                            className="h-9 w-9 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-slate-600 hover:bg-slate-100" 
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            className="h-9 w-9 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-slate-600 hover:bg-slate-100"
                                                             onClick={() => navigator.clipboard.writeText(user.email)}
                                                         >
                                                             <Copy className="w-4 h-4" />
@@ -234,10 +231,10 @@ export function UserDetailSheet({ userId, open, onOpenChange }: UserDetailSheetP
                                                             <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">User ID</p>
                                                             <p className="text-sm font-mono text-slate-700 break-all">{user.user_id}</p>
                                                         </div>
-                                                        <Button 
-                                                            variant="ghost" 
-                                                            size="icon" 
-                                                            className="h-9 w-9 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-slate-600 hover:bg-slate-100" 
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            className="h-9 w-9 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-slate-600 hover:bg-slate-100"
                                                             onClick={() => navigator.clipboard.writeText(user.user_id)}
                                                         >
                                                             <Copy className="w-4 h-4" />
@@ -256,11 +253,10 @@ export function UserDetailSheet({ userId, open, onOpenChange }: UserDetailSheetP
                                                         <div className="p-5">
                                                             <div className="flex items-center justify-between mb-4">
                                                                 <div className="flex items-center gap-3">
-                                                                    <div className={`rounded-lg p-2 ${
-                                                                        addr.address_type === 'home' 
-                                                                            ? 'bg-blue-100 text-blue-600' 
+                                                                    <div className={`rounded-lg p-2 ${addr.address_type === 'home'
+                                                                            ? 'bg-blue-100 text-blue-600'
                                                                             : 'bg-orange-100 text-orange-600'
-                                                                    }`}>
+                                                                        }`}>
                                                                         <MapPin className="w-4 h-4" />
                                                                     </div>
                                                                     <span className="font-semibold text-slate-900">{addr.title}</span>

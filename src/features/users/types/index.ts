@@ -17,18 +17,9 @@ export interface User {
     updated_at: string;
 }
 
-export enum UserRole {
-    CUSTOMER = 'customer',
-    ADMIN = 'admin',
-    RESTAURANT_OWNER = 'restaurant_owner',
-    DELIVERY_PARTNER = 'delivery_partner',
-}
+export type UserRole = 'customer' | 'admin' | 'restaurant_owner' | 'delivery_partner';
 
-export enum UserStatus {
-    ACTIVE = 'active',
-    INACTIVE = 'inactive',
-    SUSPENDED = 'suspended',
-}
+export type UserStatus = 'active' | 'inactive' | 'suspended';
 
 // API Request/Response Types
 export interface UsersListParams {
