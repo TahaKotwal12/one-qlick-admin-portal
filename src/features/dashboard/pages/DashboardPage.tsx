@@ -1,25 +1,53 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
+import { authAPI } from '@/api/auth.api';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import {
     LayoutDashboard,
     Users,
     Store,
     ShoppingCart,
     Bike,
-    TrendingUp,
     DollarSign,
-    Package
+    Package,
+    LogOut,
+    Loader2
 } from 'lucide-react';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function DashboardPage() {
     const { user, logout } = useAuthStore();
     const navigate = useNavigate();
+    const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
+    const handleLogout = async () => {
+        setIsLoggingOut(true);
+        try {
+            // Call logout API (clears tokens on backend)
+            await authAPI.logout();
+        } catch (error) {
+            console.error('Logout error:', error);
+            // Continue with logout even if API call fails
+        } finally {
+            // Clear local state
+            logout();
+            setIsLoggingOut(false);
+            setShowLogoutDialog(false);
+            // Redirect to login
+            navigate('/login');
+        }
     };
 
     const stats = [
@@ -28,8 +56,8 @@ export default function DashboardPage() {
             value: '1,234',
             change: '+12.5%',
             icon: ShoppingCart,
-            color: 'text-blue-600',
-            bgColor: 'bg-blue-100',
+            color: 'text-indigo-600',
+            bgColor: 'bg-indigo-100',
         },
         {
             title: 'Total Revenue',
@@ -71,7 +99,7 @@ export default function DashboardPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
                                 <LayoutDashboard className="w-6 h-6 text-white" />
                             </div>
                             <div>
@@ -79,7 +107,12 @@ export default function DashboardPage() {
                                 <p className="text-sm text-gray-500">Welcome back, {user?.first_name || 'Admin'}!</p>
                             </div>
                         </div>
-                        <Button onClick={handleLogout} variant="outline">
+                        <Button
+                            onClick={() => setShowLogoutDialog(true)}
+                            variant="outline"
+                            className="hover:bg-red-50 hover:text-red-600 hover:border-red-300"
+                        >
+                            <LogOut className="w-4 h-4 mr-2" />
                             Logout
                         </Button>
                     </div>
@@ -89,16 +122,19 @@ export default function DashboardPage() {
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Welcome Card */}
-                <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                     <CardHeader>
                         <CardTitle className="text-2xl text-white">Welcome to OneQlick Admin Panel</CardTitle>
-                        <CardDescription className="text-blue-100">
+                        <CardDescription className="text-indigo-100">
                             Manage your food delivery platform with ease
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-blue-50">
+                        <p className="text-indigo-50">
                             You're logged in as <span className="font-semibold">{user?.email}</span>
+                        </p>
+                        <p className="text-xs text-indigo-200 mt-1">
+                            Role: <span className="font-semibold uppercase">{user?.role}</span>
                         </p>
                     </CardContent>
                 </Card>
@@ -133,10 +169,10 @@ export default function DashboardPage() {
                                 <Button
                                     key={index}
                                     variant="outline"
-                                    className="h-24 flex flex-col items-center justify-center space-y-2 hover:bg-blue-50 hover:border-blue-300"
+                                    className="h-24 flex flex-col items-center justify-center space-y-2 hover:bg-indigo-50 hover:border-indigo-300"
                                     onClick={() => alert(`Navigate to ${action.path} (Coming soon!)`)}
                                 >
-                                    <action.icon className="w-8 h-8 text-blue-600" />
+                                    <action.icon className="w-8 h-8 text-indigo-600" />
                                     <span className="font-medium">{action.label}</span>
                                 </Button>
                             ))}
@@ -172,6 +208,38 @@ export default function DashboardPage() {
                     </CardContent>
                 </Card>
             </main>
+
+            {/* Logout Confirmation Dialog */}
+            <AlertDialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure you want to logout?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            You will be redirected to the login page and will need to sign in again to access the admin panel.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={isLoggingOut}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={handleLogout}
+                            disabled={isLoggingOut}
+                            className="bg-red-600 hover:bg-red-700"
+                        >
+                            {isLoggingOut ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Logging out...
+                                </>
+                            ) : (
+                                <>
+                                    <LogOut className="mr-2 h-4 w-4" />
+                                    Logout
+                                </>
+                            )}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

@@ -1,21 +1,61 @@
-import apiClient from './client';
-import { AUTH_ENDPOINTS } from './endpoints';
+import apiClient, { handleApiError } from './client';
 
+// Types
 export interface LoginRequest {
     email: string;
     password: string;
 }
 
 export interface LoginResponse {
-    access_token: string;
+    success: boolean;
+    code: number;
+    message: string;
+    data: {
+        user: {
+            user_id: string;
+            email: string;
+            first_name: string;
+            last_name: string;
+            role: string;
+            status: string;
+            profile_image?: string;
+            email_verified: boolean;
+            phone_verified: boolean;
+        };
+        tokens: {
+            access_token: string;
+            refresh_token: string;
+            token_type: string;
+        };
+    };
+}
+
+export interface RefreshTokenRequest {
     refresh_token: string;
-    user: {
-        user_id: string;
-        email: string;
-        first_name: string;
-        last_name: string;
-        role: string;
-        profile_image?: string;
+}
+
+export interface RefreshTokenResponse {
+    success: boolean;
+    code: number;
+    data: {
+        access_token: string;
+        refresh_token: string;
+        token_type: string;
+    };
+}
+
+export interface LogoutRequest {
+    refresh_token?: string;
+    logout_all_devices?: boolean;
+}
+
+export interface LogoutResponse {
+    success: boolean;
+    code: number;
+    message: string;
+    data: {
+        message: string;
+        logged_out_devices: number;
     };
 }
 
@@ -29,50 +69,99 @@ export interface ResetPasswordRequest {
 }
 
 export interface ChangePasswordRequest {
-    old_password: string;
+    current_password: string;
     new_password: string;
 }
 
-// Login
-export const login = async (data: LoginRequest) => {
-    const response = await apiClient.post<{ data: LoginResponse }>(
-        AUTH_ENDPOINTS.LOGIN,
-        data
-    );
-    return response.data.data;
-};
+// Auth API Functions
+export const authAPI = {
+    /**
+     * Login with email and password
+     */
+    login: async (credentials: LoginRequest): Promise<LoginResponse> => {
+        try {
+            const response = await apiClient.post<LoginResponse>('/auth/login', credentials);
 
-// Refresh token
-export const refreshToken = async (refreshToken: string) => {
-    const response = await apiClient.post<{ data: { access_token: string } }>(
-        AUTH_ENDPOINTS.REFRESH,
-        { refresh_token: refreshToken }
-    );
-    return response.data.data;
-};
+            // Verify user is admin
+            if (response.data.data.user.role !== 'admin') {
+                throw new Error('Access denied. Admin privileges required.');
+            }
 
-// Logout
-export const logout = async (refreshToken: string) => {
-    const response = await apiClient.post(AUTH_ENDPOINTS.LOGOUT, {
-        refresh_token: refreshToken,
-    });
-    return response.data;
-};
+            return response.data;
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    },
 
-// Forgot password
-export const forgotPassword = async (data: ForgotPasswordRequest) => {
-    const response = await apiClient.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, data);
-    return response.data;
-};
+    /**
+     * Refresh access token
+     */
+    refreshToken: async (refreshToken: string): Promise<RefreshTokenResponse> => {
+        try {
+            const response = await apiClient.post<RefreshTokenResponse>('/auth/refresh', {
+                refresh_token: refreshToken,
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    },
 
-// Reset password
-export const resetPassword = async (data: ResetPasswordRequest) => {
-    const response = await apiClient.post(AUTH_ENDPOINTS.RESET_PASSWORD, data);
-    return response.data;
-};
+    /**
+     * Logout - Revokes refresh tokens and deactivates sessions
+     */
+    logout: async (logoutAllDevices: boolean = false): Promise<void> => {
+        try {
+            // Get refresh token from localStorage
+            const refreshToken = localStorage.getItem('refresh_token');
 
-// Change password
-export const changePassword = async (data: ChangePasswordRequest) => {
-    const response = await apiClient.post(AUTH_ENDPOINTS.CHANGE_PASSWORD, data);
-    return response.data;
+            // Call backend logout endpoint
+            await apiClient.post<LogoutResponse>('/auth/logout', {
+                refresh_token: refreshToken || undefined,
+                logout_all_devices: logoutAllDevices,
+            });
+        } catch (error) {
+            // Log error but don't throw - we still want to clear local storage
+            console.error('Logout API error:', error);
+        } finally {
+            // Always clear local storage regardless of API success
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('auth-storage'); // Zustand persist key
+        }
+    },
+
+    /**
+     * Request password reset
+     */
+    forgotPassword: async (email: string): Promise<void> => {
+        try {
+            await apiClient.post('/auth/forgot-password', { email });
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    },
+
+    /**
+     * Reset password with token
+     */
+    resetPassword: async (data: ResetPasswordRequest): Promise<void> => {
+        try {
+            await apiClient.post('/auth/reset-password', data);
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    },
+
+    /**
+     * Change password (authenticated)
+     */
+    changePassword: async (data: ChangePasswordRequest): Promise<void> => {
+        try {
+            await apiClient.post('/auth/change-password', data);
+        } catch (error) {
+            throw new Error(handleApiError(error));
+        }
+    },
 };

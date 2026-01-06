@@ -5,25 +5,25 @@ export const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
 
 // Auth Endpoints
 export const AUTH_ENDPOINTS = {
-    LOGIN: '/auth/admin/login',
-    REFRESH: '/auth/admin/refresh',
-    LOGOUT: '/auth/admin/logout',
-    FORGOT_PASSWORD: '/auth/admin/forgot-password',
-    RESET_PASSWORD: '/auth/admin/reset-password',
-    CHANGE_PASSWORD: '/auth/admin/change-password',
+    LOGIN: '/auth/login',  // Backend uses /auth/login for all users
+    REFRESH: '/auth/refresh',
+    LOGOUT: '/auth/logout',
+    FORGOT_PASSWORD: '/auth/forgot-password',
+    RESET_PASSWORD: '/auth/reset-password',
+    CHANGE_PASSWORD: '/auth/change-password',
 } as const;
 
 // User Endpoints
 export const USER_ENDPOINTS = {
-    LIST: '/admin/users',
-    DETAIL: (id: string) => `/admin/users/${id}`,
-    UPDATE: (id: string) => `/admin/users/${id}`,
-    UPDATE_STATUS: (id: string) => `/admin/users/${id}/status`,
-    UPDATE_ROLE: (id: string) => `/admin/users/${id}/role`,
-    ADDRESSES: (id: string) => `/admin/users/${id}/addresses`,
-    ORDERS: (id: string) => `/admin/users/${id}/orders`,
-    SESSIONS: (id: string) => `/admin/users/${id}/sessions`,
-    EXPORT: '/admin/users/export',
+    LIST: '/users/admin/users',  // Backend uses /users/admin/users
+    DETAIL: (id: string) => `/users/admin/users/${id}`,
+    UPDATE: (id: string) => `/users/admin/users/${id}`,
+    UPDATE_STATUS: (id: string) => `/users/admin/users/${id}/status`,
+    UPDATE_ROLE: (id: string) => `/users/admin/users/${id}/role`,
+    ADDRESSES: (id: string) => `/users/${id}/addresses`,
+    ORDERS: (id: string) => `/users/${id}/orders`,
+    SESSIONS: (id: string) => `/users/${id}/sessions`,
+    EXPORT: '/users/admin/users/export',
 };
 
 // Restaurant Endpoints

@@ -3,10 +3,10 @@ import ProtectedRoute from './ProtectedRoute';
 
 // Auth Pages
 import LoginPage from '@/features/auth/pages/LoginPage';
-import DashboardPage from '@/features/dashboard/pages/DashboardPage';
+import ForgotPasswordPage from '@/features/auth/pages/ForgotPasswordPage';
 
 // Dashboard Pages
-// import DashboardPage from '@/features/dashboard/pages/DashboardPage';
+import DashboardPage from '@/features/dashboard/pages/DashboardPage';
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +16,10 @@ export const router = createBrowserRouter([
     {
         path: '/login',
         element: <LoginPage />,
+    },
+    {
+        path: '/forgot-password',
+        element: <ForgotPasswordPage />,
     },
     {
         path: '/dashboard',
