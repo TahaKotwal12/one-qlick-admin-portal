@@ -5,6 +5,8 @@ interface ProtectedRouteProps {
     children: React.ReactNode;
 }
 
+import DashboardLayout from '@/components/layout/DashboardLayout';
+
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     const { isAuthenticated } = useAuthStore();
 
@@ -12,5 +14,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
         return <Navigate to="/login" replace />;
     }
 
-    return <>{children}</>;
+    return (
+        <DashboardLayout>
+            {children}
+        </DashboardLayout>
+    );
 }

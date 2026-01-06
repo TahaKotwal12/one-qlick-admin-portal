@@ -8,6 +8,9 @@ import ForgotPasswordPage from '@/features/auth/pages/ForgotPasswordPage';
 // Dashboard Pages
 import DashboardPage from '@/features/dashboard/pages/DashboardPage';
 
+// User Pages
+import UsersListPage from '@/features/users/pages/UsersListPage';
+
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -26,6 +29,14 @@ export const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <DashboardPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/users',
+        element: (
+            <ProtectedRoute>
+                <UsersListPage />
             </ProtectedRoute>
         ),
     },
