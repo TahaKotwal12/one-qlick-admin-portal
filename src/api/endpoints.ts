@@ -84,13 +84,16 @@ export const MENU_ENDPOINTS = {
 
 // Coupon Endpoints
 export const COUPON_ENDPOINTS = {
-    LIST: '/admin/coupons',
-    DETAIL: (id: string) => `/admin/coupons/${id}`,
-    CREATE: '/admin/coupons',
-    UPDATE: (id: string) => `/admin/coupons/${id}`,
-    DELETE: (id: string) => `/admin/coupons/${id}`,
-    USAGE: (id: string) => `/admin/coupons/${id}/usage`,
-    ANALYTICS: '/admin/coupons/analytics',
+    LIST: '/coupons/admin/list',  // Admin list endpoint
+    DETAIL: (id: string) => `/coupons/${id}`,
+    CREATE: '/coupons',
+    UPDATE: (id: string) => `/coupons/${id}`,
+    DELETE: (id: string) => `/coupons/${id}`,
+    VALIDATE: '/coupons/validate',
+    APPLY: '/coupons/apply',
+    USAGE: (id: string) => `/coupons/${id}/usage`,
+    ANALYTICS: '/coupons/analytics',
+    CAROUSEL: '/coupons/carousel',
 };
 
 // Financial Endpoints
