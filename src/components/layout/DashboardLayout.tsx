@@ -1,4 +1,5 @@
 import { Sidebar } from './Sidebar';
+import NotificationBell from './NotificationBell';
 
 interface DashboardLayoutProps {
     children: React.ReactNode;
@@ -13,8 +14,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
 
             {/* Main Content - Takes remaining space and scrollable */}
-            <main className="flex-1 flex flex-col min-h-0 overflow-y-auto">
-                <div className="flex-1 h-full p-0">
+            <main className="flex-1 flex flex-col min-h-0">
+                {/* Header */}
+                <header className="flex h-16 items-center justify-end border-b bg-white px-6 flex-shrink-0">
+                    <NotificationBell />
+                </header>
+
+                {/* Content */}
+                <div className="flex-1 overflow-y-auto p-0">
                     {children}
                 </div>
             </main>

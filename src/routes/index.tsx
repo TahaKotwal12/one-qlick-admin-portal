@@ -16,6 +16,9 @@ import CouponsListPage from '@/features/coupons/pages/CouponsListPage';
 import CreateCouponPage from '@/features/coupons/pages/CreateCouponPage';
 import EditCouponPage from '@/features/coupons/pages/EditCouponPage';
 
+// Notification Pages
+import NotificationsPage from '@/features/notifications/pages/NotificationsPage';
+
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -42,6 +45,14 @@ export const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <UsersListPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/notifications',
+        element: (
+            <ProtectedRoute>
+                <NotificationsPage />
             </ProtectedRoute>
         ),
     },
