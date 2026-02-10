@@ -117,6 +117,14 @@ export const REVIEW_ENDPOINTS = {
     DELETE: (id: string) => `/admin/reviews/${id}`,
     FLAGGED: '/admin/reviews/flagged',
     ANALYTICS: '/admin/reviews/analytics',
+
+    // Form Management
+    FORMS_LIST: '/reviews/admin/forms',
+    FORM_CREATE: '/reviews/form',
+    FORM_DETAIL: (slug: string) => `/reviews/form/${slug}`,
+    FORM_UPDATE: (id: string) => `/reviews/form/${id}`,
+    FORM_DELETE: (id: string) => `/reviews/form/${id}`,
+    RESPONSES: (id?: string) => `/reviews/admin/responses${id ? `?form_id=${id}` : ''}`,
 };
 
 // Notification Endpoints

@@ -11,7 +11,8 @@ import {
     UtensilsCrossed,
     Ticket,
     Bell,
-    BarChart3
+    BarChart3,
+    MessageSquare
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
@@ -88,6 +89,12 @@ export function Sidebar({ className }: SidebarProps) {
             icon: Bell,
             href: '/notifications',
             color: 'text-red-500',
+        },
+        {
+            label: 'Reviews',
+            icon: MessageSquare,
+            href: '/reviews',
+            color: 'text-amber-500',
         },
         {
             label: 'Settings',
