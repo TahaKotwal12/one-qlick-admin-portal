@@ -7,7 +7,7 @@ import {
     getSortedRowModel,
 } from '@tanstack/react-table';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
-import { MoreHorizontal, Edit, Trash2, Eye, MessageSquare } from 'lucide-react';
+import { MoreHorizontal, Edit, Trash2, MessageSquare } from 'lucide-react';
 import {
     Table,
     TableBody,
