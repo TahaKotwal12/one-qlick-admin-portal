@@ -1,6 +1,5 @@
 import apiClient from '@/api/client';
 import type {
-    SupportTicket,
     TicketListResponse,
     SupportTicketDetail,
     SupportMessage,
