@@ -19,6 +19,12 @@ import EditCouponPage from '@/features/coupons/pages/EditCouponPage';
 // Notification Pages
 import NotificationsPage from '@/features/notifications/pages/NotificationsPage';
 
+// Review Pages
+import ReviewsListPage from '@/features/reviews/pages/ReviewsListPage';
+import CreateReviewFormPage from '@/features/reviews/pages/CreateReviewFormPage';
+import EditReviewFormPage from '@/features/reviews/pages/EditReviewFormPage';
+import ReviewResponsesPage from '@/features/reviews/pages/ReviewResponsesPage';
+
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -77,6 +83,38 @@ export const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <EditCouponPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/reviews',
+        element: (
+            <ProtectedRoute>
+                <ReviewsListPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/reviews/new',
+        element: (
+            <ProtectedRoute>
+                <CreateReviewFormPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/reviews/:id/edit',
+        element: (
+            <ProtectedRoute>
+                <EditReviewFormPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/reviews/:id/responses',
+        element: (
+            <ProtectedRoute>
+                <ReviewResponsesPage />
             </ProtectedRoute>
         ),
     },

@@ -1,8 +1,10 @@
-export enum CouponType {
-    PERCENTAGE = 'percentage',
-    FIXED_AMOUNT = 'fixed_amount',
-    FREE_DELIVERY = 'free_delivery',
-}
+export const CouponType = {
+    PERCENTAGE: 'percentage',
+    FIXED_AMOUNT: 'fixed_amount',
+    FREE_DELIVERY: 'free_delivery',
+} as const;
+
+export type CouponType = typeof CouponType[keyof typeof CouponType];
 
 export interface Coupon {
     coupon_id: string;
