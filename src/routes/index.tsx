@@ -25,6 +25,10 @@ import CreateReviewFormPage from '@/features/reviews/pages/CreateReviewFormPage'
 import EditReviewFormPage from '@/features/reviews/pages/EditReviewFormPage';
 import ReviewResponsesPage from '@/features/reviews/pages/ReviewResponsesPage';
 
+// Support Pages
+import SupportTicketsPage from '@/features/support/pages/SupportTicketsPage';
+import SupportChatPage from '@/features/support/pages/SupportChatPage';
+
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -115,6 +119,22 @@ export const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <ReviewResponsesPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/support',
+        element: (
+            <ProtectedRoute>
+                <SupportTicketsPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/support/:id',
+        element: (
+            <ProtectedRoute>
+                <SupportChatPage />
             </ProtectedRoute>
         ),
     },

@@ -12,7 +12,8 @@ import {
     Ticket,
     Bell,
     BarChart3,
-    MessageSquare
+    MessageSquare,
+    LifeBuoy
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
@@ -95,6 +96,12 @@ export function Sidebar({ className }: SidebarProps) {
             icon: MessageSquare,
             href: '/reviews',
             color: 'text-amber-500',
+        },
+        {
+            label: 'Customer Support',
+            icon: LifeBuoy,
+            href: '/support',
+            color: 'text-indigo-400',
         },
         {
             label: 'Settings',
