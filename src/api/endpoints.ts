@@ -5,7 +5,7 @@ export const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
 
 // Auth Endpoints
 export const AUTH_ENDPOINTS = {
-    LOGIN: '/auth/login',  // Backend uses /auth/login for all users
+    LOGIN: '/auth/login',
     REFRESH: '/auth/refresh',
     LOGOUT: '/auth/logout',
     FORGOT_PASSWORD: '/auth/forgot-password',
@@ -15,7 +15,8 @@ export const AUTH_ENDPOINTS = {
 
 // User Endpoints
 export const USER_ENDPOINTS = {
-    LIST: '/users/admin/users',  // Backend uses /users/admin/users
+    LIST: '/users/admin/users',
+
     DETAIL: (id: string) => `/users/admin/users/${id}`,
     UPDATE: (id: string) => `/users/admin/users/${id}`,
     UPDATE_STATUS: (id: string) => `/users/admin/users/${id}/status`,
@@ -28,20 +29,20 @@ export const USER_ENDPOINTS = {
 
 // Restaurant Endpoints
 export const RESTAURANT_ENDPOINTS = {
-    LIST: '/admin/restaurants',
-    DETAIL: (id: string) => `/admin/restaurants/${id}`,
-    CREATE: '/admin/restaurants',
-    UPDATE: (id: string) => `/admin/restaurants/${id}`,
-    UPDATE_STATUS: (id: string) => `/admin/restaurants/${id}/status`,
-    UPDATE_OPEN_STATUS: (id: string) => `/admin/restaurants/${id}/open-status`,
-    PENDING: '/admin/restaurants/pending-approval',
-    APPROVE: (id: string) => `/admin/restaurants/${id}/approve`,
-    REJECT: (id: string) => `/admin/restaurants/${id}/reject`,
-    MENU: (id: string) => `/admin/restaurants/${id}/menu`,
-    ORDERS: (id: string) => `/admin/restaurants/${id}/orders`,
-    REVIEWS: (id: string) => `/admin/restaurants/${id}/reviews`,
-    ANALYTICS: (id: string) => `/admin/restaurants/${id}/analytics`,
-    DOCUMENTS: (id: string) => `/admin/restaurants/${id}/documents`,
+    LIST: '/restaurants/admin/list',
+    DETAIL: (id: string) => `/restaurants/${id}`,
+    CREATE: '/restaurants',
+    UPDATE: (id: string) => `/restaurants/${id}`,
+    UPDATE_STATUS: (id: string) => `/restaurants/${id}/status`,
+    UPDATE_OPEN_STATUS: (id: string) => `/restaurants/${id}/open-status`,
+    PENDING: '/restaurants/admin/pending-approval',
+    APPROVE: (id: string) => `/restaurants/${id}/approve`,
+    REJECT: (id: string) => `/restaurants/${id}/reject`,
+    MENU: (id: string) => `/restaurants/${id}/menu`,
+    ORDERS: (id: string) => `/restaurants/${id}/orders`,
+    REVIEWS: (id: string) => `/restaurants/${id}/reviews`,
+    ANALYTICS: (id: string) => `/restaurants/${id}/analytics`,
+    DOCUMENTS: (id: string) => `/restaurants/${id}/documents`,
 };
 
 // Order Endpoints
@@ -76,10 +77,10 @@ export const MENU_ENDPOINTS = {
     CREATE_CATEGORY: '/admin/categories',
     UPDATE_CATEGORY: (id: string) => `/admin/categories/${id}`,
     DELETE_CATEGORY: (id: string) => `/admin/categories/${id}`,
-    RESTAURANT_MENU: (restaurantId: string) => `/admin/restaurants/${restaurantId}/menu`,
-    ADD_ITEM: (restaurantId: string) => `/admin/restaurants/${restaurantId}/menu/items`,
-    UPDATE_ITEM: (restaurantId: string, itemId: string) => `/admin/restaurants/${restaurantId}/menu/items/${itemId}`,
-    DELETE_ITEM: (restaurantId: string, itemId: string) => `/admin/restaurants/${restaurantId}/menu/items/${itemId}`,
+    RESTAURANT_MENU: (restaurantId: string) => `/restaurants/${restaurantId}/menu`,
+    ADD_ITEM: (restaurantId: string) => `/restaurants/${restaurantId}/menu/items`,
+    UPDATE_ITEM: (restaurantId: string, itemId: string) => `/restaurants/${restaurantId}/menu/items/${itemId}`,
+    DELETE_ITEM: (restaurantId: string, itemId: string) => `/restaurants/${restaurantId}/menu/items/${itemId}`,
 };
 
 // Coupon Endpoints
@@ -169,4 +170,3 @@ export const SETTINGS_ENDPOINTS = {
     UPDATE_ADMIN: (id: string) => `/admin/settings/admins/${id}`,
     DELETE_ADMIN: (id: string) => `/admin/settings/admins/${id}`,
 };
-
