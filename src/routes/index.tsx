@@ -11,6 +11,9 @@ import DashboardPage from '@/features/dashboard/pages/DashboardPage';
 // User Pages
 import UsersListPage from '@/features/users/pages/UsersListPage';
 
+// Restaurant Pages
+import RestaurantsListPage from '@/features/restaurants/pages/RestaurantsListPage';
+
 // Coupon Pages
 import CouponsListPage from '@/features/coupons/pages/CouponsListPage';
 import CreateCouponPage from '@/features/coupons/pages/CreateCouponPage';
@@ -55,6 +58,15 @@ export const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <UsersListPage />
+            </ProtectedRoute>
+        ),
+    },
+
+    {
+        path: '/restaurants',
+        element: (
+            <ProtectedRoute>
+                <RestaurantsListPage />
             </ProtectedRoute>
         ),
     },
