@@ -11,6 +11,11 @@ import DashboardPage from '@/features/dashboard/pages/DashboardPage';
 // User Pages
 import UsersListPage from '@/features/users/pages/UsersListPage';
 
+// Delivery Pages
+import DeliveryPartnersListPage from '@/features/delivery/pages/DeliveryPartnersListPage';
+import DeliveryPartnerDetailsPage from '@/features/delivery/pages/DeliveryPartnerDetailsPage';
+import EditDeliveryPartnerPage from '@/features/delivery/pages/EditDeliveryPartnerPage';
+
 // Restaurant Pages
 import RestaurantsListPage from '@/features/restaurants/pages/RestaurantsListPage';
 
@@ -61,7 +66,30 @@ export const router = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
-
+    {
+        path: '/delivery-partners',
+        element: (
+            <ProtectedRoute>
+                <DeliveryPartnersListPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/delivery-partners/:id',
+        element: (
+            <ProtectedRoute>
+                <DeliveryPartnerDetailsPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/delivery-partners/:id/edit',
+        element: (
+            <ProtectedRoute>
+                <EditDeliveryPartnerPage />
+            </ProtectedRoute>
+        ),
+    },
     {
         path: '/restaurants',
         element: (

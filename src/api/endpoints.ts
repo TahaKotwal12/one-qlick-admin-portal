@@ -60,7 +60,7 @@ export const ORDER_ENDPOINTS = {
 
 // Delivery Partner Endpoints
 export const DELIVERY_ENDPOINTS = {
-    LIST: '/admin/delivery-partners',
+    LIST: '/admin/delivery-partners/',
     AVAILABLE: '/admin/delivery-partners/available',
     DETAIL: (id: string) => `/admin/delivery-partners/${id}`,
     UPDATE: (id: string) => `/admin/delivery-partners/${id}`,

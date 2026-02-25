@@ -70,7 +70,7 @@ export function Sidebar({ className }: SidebarProps) {
         {
             label: 'Delivery Partners',
             icon: Bike,
-            href: '/delivery',
+            href: '/delivery-partners',
             color: 'text-yellow-600',
         },
         {
