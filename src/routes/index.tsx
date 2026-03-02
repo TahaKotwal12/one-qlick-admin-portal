@@ -19,6 +19,9 @@ import EditDeliveryPartnerPage from '@/features/delivery/pages/EditDeliveryPartn
 // Restaurant Pages
 import RestaurantsListPage from '@/features/restaurants/pages/RestaurantsListPage';
 
+// Order Pages
+import OrdersListPage from '@/features/orders/pages/OrdersListPage';
+
 // Coupon Pages
 import CouponsListPage from '@/features/coupons/pages/CouponsListPage';
 import CreateCouponPage from '@/features/coupons/pages/CreateCouponPage';
@@ -95,6 +98,14 @@ export const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <RestaurantsListPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/orders',
+        element: (
+            <ProtectedRoute>
+                <OrdersListPage />
             </ProtectedRoute>
         ),
     },

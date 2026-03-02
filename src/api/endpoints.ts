@@ -47,8 +47,9 @@ export const RESTAURANT_ENDPOINTS = {
 
 // Order Endpoints
 export const ORDER_ENDPOINTS = {
-    LIST: '/admin/orders',
-    DETAIL: (id: string) => `/admin/orders/${id}`,
+    LIST: '/orders/admin/orders',
+    DETAIL: (id: string) => `/orders/admin/${id}`,
+    INTERVENE: (id: string) => `/orders/admin/${id}/intervene`,
     UPDATE_STATUS: (id: string) => `/admin/orders/${id}/status`,
     CANCEL: (id: string) => `/admin/orders/${id}/cancel`,
     REFUND: (id: string) => `/admin/orders/${id}/refund`,
